@@ -29,4 +29,6 @@ public abstract class Personaje {
 	public void disminuirPuntosDeVida(int puntosDeVida) {
 		this.puntosDeVida -= puntosDeVida;
 	}
+	
+	
 }
