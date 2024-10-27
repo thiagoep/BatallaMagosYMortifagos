@@ -10,6 +10,7 @@ public abstract class Personaje {
 	protected int puntosDeVida;
 	protected boolean tieneVarita = true;
 	List<Hechizo> hechizos;
+	protected Hechizo hechizoActual;
 	
 	public Personaje(String nombre, int nivelDeMagia, int puntosDeVida, List<Hechizo> hechizos) {
 		this.nombre = nombre;
@@ -30,5 +31,20 @@ public abstract class Personaje {
 		this.puntosDeVida -= puntosDeVida;
 	}
 	
+	public String getNombre() {
+		return this.nombre;
+	}
+	
+	public void desarmar() {
+		this.tieneVarita = false;
+	}
+	
+	public void setHechizoActual(Hechizo hechizo) {
+		this.hechizoActual = hechizo;
+	}
+	
+	public void lanzarHechizo(Personaje objetivo){
+		this.hechizoActual.ejecutar(objetivo);
+	}
 	
 }
