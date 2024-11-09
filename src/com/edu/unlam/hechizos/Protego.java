@@ -1,11 +1,14 @@
 package com.edu.unlam.hechizos;
 
-public class Protego implements Hechizo {
+import com.edu.unlam.personajes.Personaje;
+
+public class Protego extends Protector {
 
 	@Override
-	public void ejecutar() {
-		// TODO Auto-generated method stub
-
-	}
+    public void ejecutar(Personaje objetivo) {
+        objetivo.activarEscudo();
+        System.out.println("¡" + this.getNombre() +"! " + objetivo.getNombre() + " está protegido.");
+    }
+	
 
 }

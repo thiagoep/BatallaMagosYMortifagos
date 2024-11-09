@@ -1,11 +1,16 @@
 package com.edu.unlam.hechizos;
 
-public class AvadaKedavra implements Hechizo {
+import com.edu.unlam.personajes.Personaje;
 
-	@Override
-	public void ejecutar() {
-		// TODO Auto-generated method stub
-		
+public class AvadaKedavra extends Maldicion{
+	
+	//@Override
+	public void ejecutar(Personaje objetivo) {
+    	int vidaObjetivo = objetivo.getPuntosDeVida();
+		objetivo.disminuirPuntosDeVida(vidaObjetivo);
+	    System.out.println(objetivo.getNombre() + " ha sido eliminado.");
+	        
+	    
 	}
-
+	
 }

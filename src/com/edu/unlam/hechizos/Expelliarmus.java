@@ -1,11 +1,15 @@
 package com.edu.unlam.hechizos;
 
-public class Expelliarmus implements Hechizo {
+import com.edu.unlam.personajes.Personaje;
 
-	@Override
-	public void ejecutar() {
-		// TODO Auto-generated method stub
-		
+public class Expelliarmus extends Ofensivo{
+
+	//@Override
+	public void ejecutar(Personaje objetivo) {
+		System.out.println("¡" + this.getNombre() +"! ");	    
+	    objetivo.desarmar();
+	    System.out.println("*" + objetivo.getNombre() + " ha sido desarmado*");
 	}
 
+	
 }
