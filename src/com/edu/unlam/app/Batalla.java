@@ -1,57 +1,86 @@
 package com.edu.unlam.app;
-import java.util.*;
 
-
-import org.jpl7.Atom;
-import org.jpl7.Query;
-import org.jpl7.Term;
-import org.jpl7.Variable;
-
-
-import com.edu.unlam.personajes.magos.*;
-import com.edu.unlam.hechizos.*;
+import com.edu.unlam.batallon.Batallon;
+import com.edu.unlam.creacion.PersonajeFactory;
+import com.edu.unlam.music.MP3Player;
 
 public class Batalla {
-	public static void main(String[] args) {
-		
-				
-		List<Hechizo> hechizos = new LinkedList<Hechizo>();
-		hechizos.add(new AvadaKedavra());
-		hechizos.add(new Expelliarmus());
-		Estudiante Fran = new Estudiante("Francisco Franco", 100, 1000, hechizos);
-		Auror Harry = new Auror("Harry Potter", 100, 1000, hechizos);
-		//Fran.setHechizoActual(new Protego());
-		Fran.setHechizoActual(new Expelliarmus());
-		//Fran.aturdir();
-		if(!Fran.lanzarHechizo(Harry))
-			System.out.println("NO HA SURTIDO EFECTO");
-		/*
-		
-		 String filePath = "C:/Users/Abigail/Downloads/consultas.pl"; // Cambia a la ruta donde guardaste hechizos.pl
-	        Query cargarArchivo = new Query("consult('" + filePath + "')");
+	public static void simularBatalla(int cantidadMagos, int cantidadMortifagos) {
+		if ((cantidadMagos + cantidadMortifagos) > 5000)
+			throw new IllegalArgumentException("No se pueden crear tantos personajes");
 
-	        // Verifica si el archivo se cargó correctamente
-	        if (cargarArchivo.hasSolution()) {
-	            System.out.println("Archivo Prolog cargado correctamente.");
-	        } else {
-	            System.out.println("No se pudo cargar el archivo Prolog.");
-	            return;
-	        }
+		System.out.println("Esta por presenciar algo iconico, agarrese!");
+		try {
+			MP3Player.play("src/com/edu/unlam/music/cancionDeApertura.mp3"); // Comenta la linea si np queres escuchar
+																				// mas la musica
+		} catch (Exception e) {
+		}
+		System.out.println("\n----------------------------\n");
 
-	        // Consultar si el hecho "hechizo(expecto_patronum)" es verdadero
-	        Query consultaHechizo = new Query("hechizo(expecto_patronum)");
-	        System.out.println("¿El hechizo expecto_patronum existe?: " + consultaHechizo.hasSolution());
+		Batallon batallonMagos = new Batallon("Los Magos");
+		Batallon batallonMortifagos = new Batallon("Los Mortifagos");
 
-	        // Consultar si "energia_suficiente(harry_potter)" es verdadero
-	        Query consultaEnergia = new Query("energia_suficiente(harry_potter)");
-	        System.out.println("¿Harry Potter tiene energía suficiente?: " + consultaEnergia.hasSolution());
+		System.out.println("¡El batallon " + batallonMagos.getNombreBatallon()
+				+ " está buscando nuevos aliados para la lucha contra las fuerzas oscuras!\n");
+		for (int i = 0; i < cantidadMagos; i++) {
+			batallonMagos.agregarPersonaje(PersonajeFactory.crearMago());
+		}
 
-	        // Consultar si "varita_sauco_disponible" es verdadero
-	        Query consultaVarita = new Query("varita_sauco_disponible");
-	        System.out.println("¿La varita de sauco está disponible?: " + consultaVarita.hasSolution());
-	    
-	    
-		 */
-	    }
-	
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+		}
+
+		System.out.println("\n----------------------------\n");
+		System.out.println("¡El batallon " + batallonMagos.getNombreBatallon()
+				+ " reclutan seguidores para expandir la oscuridad y derrotar a los magos!\n");
+		for (int i = 0; i < cantidadMortifagos; i++) {
+			batallonMortifagos.agregarPersonaje(PersonajeFactory.crearMortifago());
+		}
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+		}
+
+		System.out.println("\n----------------------------");
+		System.out.println("\nLos magos han percibido que los mortifagos se acercan... ¡Empieza la batalla!");
+
+		while (batallonMagos.tienePersonajesSaludables() && batallonMortifagos.tienePersonajesSaludables()) {
+
+			if (batallonMagos.tienePersonajesSaludables()) {
+				System.out
+						.println("\nEl batallon " + batallonMagos.getNombreBatallon() + " realizara un movimiento...");
+				batallonMagos.atacar(batallonMortifagos);
+			}
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+			}
+
+			if (batallonMortifagos.tienePersonajesSaludables()) {
+				System.out.println(
+						"\nEl batallon " + batallonMortifagos.getNombreBatallon() + " realizara un movimiento...");
+				batallonMortifagos.atacar(batallonMagos);
+			}
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+			}
+		}
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+		}
+
+		System.out.println("\n----------------------------\n");
+		if (batallonMagos.tienePersonajesSaludables()) {
+			System.out.println("¡El batallon " + batallonMagos.getNombreBatallon() + " ha ganado la batalla!");
+		} else {
+			System.out.println("¡El batallon " + batallonMortifagos.getNombreBatallon() + " ha ganado la batalla!");
+		}
+	}
 }

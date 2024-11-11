@@ -8,5 +8,4 @@ public interface Hechizo {
 
 	public String getNombre();
 
-
 }
